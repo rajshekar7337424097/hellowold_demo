@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="86594e3c-25c4-4115-a530-97a3a2aaa579" >
+		<http:listener-connection host="localhost" port="9000" />
+	</http:listener-config>
+	<flow name="helloworld_demoFlow" doc:id="69ce1090-e494-4e3c-93d4-6b3449b546a8" >
+		<http:listener doc:name="Listener" doc:id="5a990079-3c53-4e77-ac2a-05e7f3611e42" config-ref="HTTP_Listener_config" path="/api"/>
+		<logger level="INFO" doc:name="strat Logger" doc:id="ee950d6b-b455-49df-a09c-6bca6c3dc506" message=" heloo world program process initiated"/>
+		<ee:transform doc:name="Transform Message" doc:id="33bf89d1-7736-4169-84cb-c8f17255bbd1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message" : "helloworld wellcome tom mulesoft trainng",
+	"status" : 200
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="end Logger" doc:id="5b6f79d0-50cc-4a8e-92c2-0995aad0888a" message=" heloo world program process end"/>
+	</flow>
+</mule>
